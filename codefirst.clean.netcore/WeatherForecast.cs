@@ -1,6 +1,6 @@
 using System;
 
-namespace CodeFirst.NetCore
+namespace codefirst.clean.netcore
 {
     public class WeatherForecast
     {

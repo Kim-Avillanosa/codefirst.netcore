@@ -7,10 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace CodeFirst.NetCore.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserGroupController : Controller
+{ 
+    public class UserGroupController : BaseController
     {
 
         private UserDBContext myDbContext;
@@ -23,6 +21,19 @@ namespace CodeFirst.NetCore.Controllers
         public IList<UserGroup> Get()
         {
             return (this.myDbContext.UserGroups.ToList());
+        }
+        [HttpPost]
+        public ActionResult<IList<UserGroup>> Add()
+        {
+            myDbContext.UserGroups.Add(new UserGroup() 
+            {
+                 CreationDateTime = DateTime.Now,
+                 Id= 1,
+                 Name = "Kim Avillanosa",
+            });
+            myDbContext.SaveChanges();
+
+            return Created("google.com", 1);
         }
     }
 }

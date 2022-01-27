@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace CodeFirst.NetCore.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private UserDBContext myDbContext;
 
