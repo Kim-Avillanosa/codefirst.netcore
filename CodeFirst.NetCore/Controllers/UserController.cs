@@ -1,5 +1,4 @@
 ﻿using CodeFirst.NetCore.Core;
-using CodeFirst.NetCore.Core.CQRS.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;

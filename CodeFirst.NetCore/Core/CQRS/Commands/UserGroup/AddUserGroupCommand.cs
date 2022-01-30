@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace CodeFirst.NetCore
 {
-    public class DeleteUserCommand : IRequest
+    public class AddUserGroupCommand : IRequest
     {
-        public int Id { get; set; }
-
-        public DeleteUserCommand(int id)
+        public AddUserGroupCommand(string name)
         {
-            Id = id;
+            Name = name;
         }
 
+        public string  Name { get; set; }
     }
 }

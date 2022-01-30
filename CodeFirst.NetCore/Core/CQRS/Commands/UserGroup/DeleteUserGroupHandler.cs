@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace CodeFirst.NetCore
 {
-    public class DeleteUserHandler : IRequestHandler<DeleteUserGroupCommand>
+    public class DeleteUserGroupHandler : IRequestHandler<DeleteUserGroupCommand>
     {
         public UserDBContext Context { get; }
 
-        public DeleteUserHandler(UserDBContext context)
+        public DeleteUserGroupHandler(UserDBContext context)
         {
             Context = context;
         }
 
+
         public async Task<Unit> Handle(DeleteUserGroupCommand request, CancellationToken cancellationToken)
         {
+            var usergroup = Context.UserGroups.FirstOrDefault(item => item.Id == request.Id);
 
-            var user = Context.Users.FirstOrDefault(item => item.Id == request.Id);
-
-            Context.Users.Remove(user);
+            Context.UserGroups.Remove(usergroup);
 
             Context.SaveChanges();
 

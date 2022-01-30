@@ -22,7 +22,9 @@ namespace CodeFirst.NetCore
             var user = Context.Users.FirstOrDefault(item => item.Id == request.Id);
 
             user.FirstName = request.FirstName;
+
             user.LastName = request.LastName;
+
             user.UserGroupId = request.UserGroupId;
 
             Context.Users.Update(user);

@@ -39,5 +39,31 @@ namespace CodeFirst.NetCore.Controllers
                 return NoContent();
             }
         }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] AddUserGroupModel user)
+        {
+            var response = await Mediator.Send(new AddUserGroupCommand(user.Name));
+            return NoContent();
+        }
+
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserGroupModel user)
+        {
+            var response = await Mediator.Send(new UpdateUserGroupCommand(id, user.Name));
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var response = await Mediator.Send(new DeleteUserGroupCommand(id));
+            return NoContent();
+        }
+
+
     }
 }
