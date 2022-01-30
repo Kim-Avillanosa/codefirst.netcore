@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace CodeFirst.NetCore
 {
-    public class AddUserCommand : IRequest
+    public class UpdateUserCommand : IRequest
     {
-  
+        public int Id { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int UserGroupId { get; set; }
 
-        public AddUserCommand(string firstName, string lastName, int userGroupId)
+        public UpdateUserCommand(int id,string firstName, string lastName, int userGroupId)
         {
+            Id = id;
             FirstName = firstName;
             LastName = lastName;
             UserGroupId = userGroupId;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CodeFirst.NetCore.Core.CQRS.Commands
+namespace CodeFirst.NetCore
 {
     public class AddUserHandler : IRequestHandler<AddUserCommand>
     {
