@@ -1,4 +1,3 @@
-using CodeFirst.NetCore.DbContexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 
 namespace CodeFirst.NetCore
 {
@@ -28,15 +28,23 @@ namespace CodeFirst.NetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddMediatR(typeof(Startup));
+
+
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContextPool<UserDBContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
-
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CodeFirst.NetCore", Version = "v1" });
             });
+
+
+            services.AddRouting(opt => opt.LowercaseUrls = true);
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

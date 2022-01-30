@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CodeFirst.NetCore.Migrations
 {
-    public partial class DBinit : Migration
+    public partial class dbinit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,8 +15,10 @@ namespace CodeFirst.NetCore.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    CreationDateTime = table.Column<DateTime>(type: "datetime", nullable: false),
-                    LastUpdateDateTime = table.Column<DateTime>(type: "datetime", nullable: true)
+                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    last_modified = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn)
                 },
                 constraints: table =>
                 {
@@ -29,11 +31,13 @@ namespace CodeFirst.NetCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     UserGroupId = table.Column<int>(type: "int", nullable: false),
-                    CreationDateTime = table.Column<DateTime>(type: "datetime", nullable: false),
-                    LastUpdateDateTime = table.Column<DateTime>(type: "datetime", nullable: true)
+                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    last_modified = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn)
                 },
                 constraints: table =>
                 {
@@ -44,6 +48,36 @@ namespace CodeFirst.NetCore.Migrations
                         principalTable: "UserGroups",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.InsertData(
+                table: "UserGroups",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Administrator" });
+
+            migrationBuilder.InsertData(
+                table: "UserGroups",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "Standard" });
+
+            migrationBuilder.InsertData(
+                table: "UserGroups",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 3, "Guest" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "FirstName", "LastName", "UserGroupId" },
+                values: new object[] { 1, "Kim", "Avillanosa", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "FirstName", "LastName", "UserGroupId" },
+                values: new object[] { 2, "Mark", "Peralta", 2 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "FirstName", "LastName", "UserGroupId" },
+                values: new object[] { 3, "Elmer", "Robles", 3 });
 
             migrationBuilder.CreateIndex(
                 name: "Idx_Name",

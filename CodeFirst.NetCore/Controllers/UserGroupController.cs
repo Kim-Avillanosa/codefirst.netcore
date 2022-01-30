@@ -1,5 +1,4 @@
-﻿using CodeFirst.NetCore.DbContexts;
-using CodeFirst.NetCore.Models;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,29 +10,34 @@ namespace CodeFirst.NetCore.Controllers
     public class UserGroupController : BaseController
     {
 
-        private UserDBContext myDbContext;
-        public UserGroupController(UserDBContext context)
-        {
-            myDbContext = context;
-        }
-
         [HttpGet]
-        public IList<UserGroup> Get()
+        public async Task<IActionResult> Get()
         {
-            return (this.myDbContext.UserGroups.ToList());
-        }
-        [HttpPost]
-        public ActionResult<IList<UserGroup>> Add()
-        {
-            myDbContext.UserGroups.Add(new UserGroup() 
-            {
-                 CreationDateTime = DateTime.Now,
-                 Id= 1,
-                 Name = "Kim Avillanosa",
-            });
-            myDbContext.SaveChanges();
+            var response = await Mediator.Send(new GetUserGroupCollectionQuery());
 
-            return Created("google.com", 1);
+            if (response.Count() > 0)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get([FromRoute] int id)
+        {
+            var response = await Mediator.Send(new GetUserGroupByIdQuery(id));
+
+            if (response != null)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return NoContent();
+            }
         }
     }
 }
