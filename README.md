@@ -1,15 +1,23 @@
-## Code First approach example
 
-- Basic implementation
-- Using clean architecture
+## Code First Approach example
+
+Basic Implementation of crud using the code first approach
+
+Using the following tech and practices
+ - Entity Framework Core
+ - Mediatr
+ - CQRS
+ - Dependency Injection (Inversion of control principle)
+ - Swagger Docs
+ - .Net Core 5 
 
 ------------
 
 
-Run the following commands to migrate to your mysql database
+Run the following commands to migrate to your **MySQL** database
 
 **Initialize migration**
 `package manager console > Add-Migration DBinit`
 
-**Bind models to MySQL Database**
+**Bind entities to MySQL Database**
 `package manager console > Update-Database`
