@@ -1,6 +1,7 @@
-
-
 ## Entity Framework Code-First example
+
+
+![Swagger DOC](https://raw.githubusercontent.com/Kim-Avillanosa/codefirst.netcore/main/Codefirst.PNG)
 
 ------------
 
