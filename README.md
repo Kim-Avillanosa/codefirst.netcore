@@ -14,7 +14,7 @@ Using the following tech and practices
  - Dependency Injection (Inversion of control principle)
  - Swagger Docs
  - .Net Core 5 
-
+ - Repository Pattern
 ------------
 
 
