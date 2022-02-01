@@ -1,8 +1,6 @@
 ## Entity Framework Code-First example
 
-
-![Swagger DOC](https://raw.githubusercontent.com/Kim-Avillanosa/codefirst.netcore/main/Codefirst.PNG)
-
+![Swagger DOC](https://raw.githubusercontent.com/Kim-Avillanosa/codefirst.netcore/main/CodeFirstBanner.jpg)
 ------------
 
 Basic Implementation of CRUD using the code first approach
@@ -16,6 +14,12 @@ Using the following tech and practices
  - .Net Core 5 
  - Repository Pattern
  - Fluent validation
+------------
+
+Swagger doc
+
+![Swagger DOC](https://raw.githubusercontent.com/Kim-Avillanosa/codefirst.netcore/main/Codefirst.PNG)
+
 ------------
 
 
