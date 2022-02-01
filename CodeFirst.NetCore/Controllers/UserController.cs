@@ -10,6 +10,11 @@ namespace CodeFirst.NetCore.Controllers
 {
     public class UserController : BaseController
     {
+
+        /// <summary>
+        /// Fetch list of users
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -25,6 +30,11 @@ namespace CodeFirst.NetCore.Controllers
             }
         }
 
+        /// <summary>
+        /// Fetch user detail by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute]int id)
         {
@@ -40,6 +50,11 @@ namespace CodeFirst.NetCore.Controllers
             }
         }
 
+        /// <summary>
+        /// Create new user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Add([FromBody]AddUserModel user)
         {
@@ -48,6 +63,12 @@ namespace CodeFirst.NetCore.Controllers
         }
 
 
+        /// <summary>
+        /// Modify existing user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserModel user)
         {
@@ -55,6 +76,11 @@ namespace CodeFirst.NetCore.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Permanently remove current user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

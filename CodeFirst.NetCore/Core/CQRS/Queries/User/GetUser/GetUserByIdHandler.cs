@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CodeFirst.NetCore
 {
-    public class GetUserByIdHandler : IRequestHandler<GetUserByIdQuery, User>
+    public class GetUserByIdHandler : IRequestHandler<GetUserByIdQuery, User> 
     {
         private readonly IUserRepository userRepository;
 

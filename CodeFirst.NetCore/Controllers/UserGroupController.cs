@@ -10,6 +10,10 @@ namespace CodeFirst.NetCore.Controllers
     public class UserGroupController : BaseController
     {
 
+        /// <summary>
+        /// Fetch list of user groups
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -25,6 +29,11 @@ namespace CodeFirst.NetCore.Controllers
             }
         }
 
+        /// <summary>
+        /// Fetch user group detail by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
@@ -41,7 +50,11 @@ namespace CodeFirst.NetCore.Controllers
         }
 
 
-
+        /// <summary>
+        /// Add user group
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] AddUserGroupModel user)
         {
@@ -50,6 +63,12 @@ namespace CodeFirst.NetCore.Controllers
         }
 
 
+        /// <summary>
+        /// Update user group
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserGroupModel user)
         {
@@ -57,6 +76,12 @@ namespace CodeFirst.NetCore.Controllers
             return NoContent();
         }
 
+
+        /// <summary>
+        /// Remove user group
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
