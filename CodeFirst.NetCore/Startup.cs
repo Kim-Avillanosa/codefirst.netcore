@@ -33,7 +33,9 @@ namespace CodeFirst.NetCore
 
 
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContextPool<UserDBContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+            services.AddDbContextPool<UserDBContext>
+                (options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr),
+                options=> options.MigrationsAssembly("CodeFirst.NetCore")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -50,12 +52,16 @@ namespace CodeFirst.NetCore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CodeFirst.NetCore v1"));
             }
+
+            // handles auto migration
+            app.CreateMigration();
 
             app.UseHttpsRedirection();
 
@@ -68,5 +74,8 @@ namespace CodeFirst.NetCore
                 endpoints.MapControllers();
             });
         }
+
+
+       
     }
 }

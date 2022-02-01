@@ -1,10 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-namespace CodeFirst.NetCore.Core
+using Microsoft.Extensions.DependencyInjection;
+
+namespace CodeFirst.NetCore
 {
     static class EntityFrameworkExtensions
     {
+        //base entity builder
         internal static EntityTypeBuilder<TEntity> UseTimestampedProperty<TEntity>(this EntityTypeBuilder<TEntity> entity) where TEntity : class, ITimestampedEntity
         {
             entity.Property(d => d.CreatedAt)
@@ -23,5 +27,22 @@ namespace CodeFirst.NetCore.Core
 
             return entity;
         }
+        
+
+        /// <summary>
+        /// Handles auto migration on startup
+        /// </summary>
+        /// <param name="app">From configure method on startup</param>
+        internal static void CreateMigration(this IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<UserDBContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
+        }
+
     }
 }
