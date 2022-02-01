@@ -47,6 +47,7 @@ namespace CodeFirst.NetCore
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CodeFirst.NetCore", Version = "v1" });
             });
 
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddRouting(opt => opt.LowercaseUrls = true);
 

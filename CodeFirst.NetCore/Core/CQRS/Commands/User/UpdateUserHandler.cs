@@ -9,28 +9,24 @@ namespace CodeFirst.NetCore
 {
     public class UpdateUserHandler : IRequestHandler<UpdateUserCommand>
     {
+        private readonly IUserRepository userRepository;
 
-        public UserDBContext Context { get; }
-
-        public UpdateUserHandler(UserDBContext context)
+        public UpdateUserHandler(IUserRepository userRepository)
         {
-            Context = context;
+            this.userRepository = userRepository;
         }
-
+    
         public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = Context.Users.FirstOrDefault(item => item.Id == request.Id);
+            var currentUser = new User
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserGroupId = request.UserGroupId
+            };
 
-            user.FirstName = request.FirstName;
-
-            user.LastName = request.LastName;
-
-            user.UserGroupId = request.UserGroupId;
-
-            Context.Users.Update(user);
-
-            await Context.SaveChangesAsync();
-
+           await userRepository.UpdateAsync(request.Id, currentUser);
+            
             return Unit.Value;
         }
     }

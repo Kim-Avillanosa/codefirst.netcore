@@ -9,17 +9,15 @@ namespace CodeFirst.NetCore
 {
     public class GetUserCollectionHandler : IRequestHandler<GetUserCollectionQuery, IEnumerable<User>>
     {
-        public UserDBContext Context { get; }
+        private readonly IUserRepository userRepository;
 
-        public GetUserCollectionHandler(UserDBContext context)
+        public GetUserCollectionHandler(IUserRepository userRepository)
         {
-            Context = context;
+            this.userRepository = userRepository;
         }
-
-
         public async Task<IEnumerable<User>> Handle(GetUserCollectionQuery request, CancellationToken cancellationToken)
         {
-            var response = Context.Users.ToList();
+            var response = await userRepository.GetListAsync();
 
             return await Task.FromResult(response);
         }

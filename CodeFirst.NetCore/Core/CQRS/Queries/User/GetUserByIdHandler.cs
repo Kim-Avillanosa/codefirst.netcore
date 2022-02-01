@@ -9,17 +9,17 @@ namespace CodeFirst.NetCore
 {
     public class GetUserByIdHandler : IRequestHandler<GetUserByIdQuery, User>
     {
-        public UserDBContext Context { get; }
+        private readonly IUserRepository userRepository;
 
-        public GetUserByIdHandler(UserDBContext context)
+        public GetUserByIdHandler(IUserRepository userRepository)
         {
-            Context = context;
+            this.userRepository = userRepository;
         }
 
 
         public async Task<User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            var response =  Context.Users.FirstOrDefault(item => item.Id == request.Id);
+            var response = await userRepository.GetAsync(request.Id);
 
             return await Task.FromResult(response);
         }
