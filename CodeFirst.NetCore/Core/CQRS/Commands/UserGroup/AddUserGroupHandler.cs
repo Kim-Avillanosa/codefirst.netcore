@@ -9,11 +9,11 @@ namespace CodeFirst.NetCore
 {
     public class AddUserGroupHandler : IRequestHandler<AddUserGroupCommand>
     {
-        public UserDBContext Context { get; }
+        private readonly IUserGroupRepository userGroupRepository;
 
-        public AddUserGroupHandler(UserDBContext context)
+        public AddUserGroupHandler(IUserGroupRepository userGroupRepository)
         {
-            Context = context;
+            this.userGroupRepository = userGroupRepository;
         }
 
 
@@ -24,11 +24,8 @@ namespace CodeFirst.NetCore
             {
                 Name = request.Name,
             };
-
-            Context.UserGroups.Add(user);
-
-            await Context.SaveChangesAsync();
-
+            
+            await userGroupRepository.AddAsync(user);
 
             return Unit.Value;
         }

@@ -48,6 +48,7 @@ namespace CodeFirst.NetCore
             });
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserGroupRepository, UserGroupRepository>();
 
             services.AddRouting(opt => opt.LowercaseUrls = true);
 

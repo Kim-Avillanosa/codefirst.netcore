@@ -9,21 +9,16 @@ namespace CodeFirst.NetCore
 {
     public class DeleteUserGroupHandler : IRequestHandler<DeleteUserGroupCommand>
     {
-        public UserDBContext Context { get; }
+        private readonly IUserGroupRepository userGroupRepository;
 
-        public DeleteUserGroupHandler(UserDBContext context)
+        public DeleteUserGroupHandler(IUserGroupRepository userGroupRepository)
         {
-            Context = context;
+            this.userGroupRepository = userGroupRepository;
         }
-
 
         public async Task<Unit> Handle(DeleteUserGroupCommand request, CancellationToken cancellationToken)
         {
-            var usergroup = Context.UserGroups.FirstOrDefault(item => item.Id == request.Id);
-
-            Context.UserGroups.Remove(usergroup);
-
-            Context.SaveChanges();
+            await userGroupRepository.DeleteAsync(request.Id);
 
             return Unit.Value;
         }

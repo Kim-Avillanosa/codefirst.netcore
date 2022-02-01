@@ -9,19 +9,19 @@ namespace CodeFirst.NetCore
 {
     public class GetUserGroupByIdHandler : IRequestHandler<GetUserGroupByIdQuery, UserGroup>
     {
-        public UserDBContext Context { get; }
+        private readonly IUserGroupRepository userGroupRepository;
 
-        public GetUserGroupByIdHandler(UserDBContext context)
+        public GetUserGroupByIdHandler(IUserGroupRepository userGroupRepository)
         {
-            Context = context;
+            this.userGroupRepository = userGroupRepository;
         }
 
 
         public async Task<UserGroup> Handle(GetUserGroupByIdQuery request, CancellationToken cancellationToken)
         {
-            var response = Context.UserGroups.FirstOrDefault(item => item.Id == request.Id);
+            var response = await userGroupRepository.GetAsync(request.Id);
 
-            return await Task.FromResult(response);
+            return response;
         }
     }
 }

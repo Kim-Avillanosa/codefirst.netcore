@@ -9,19 +9,18 @@ namespace CodeFirst.NetCore
 {
     public class GetUserGroupCollectionHandler : IRequestHandler<GetUserGroupCollectionQuery, IEnumerable<UserGroup>>
     {
+        private readonly IUserGroupRepository userGroupRepository;
 
-        public UserDBContext Context { get; }
-
-        public GetUserGroupCollectionHandler(UserDBContext context)
+        public GetUserGroupCollectionHandler(IUserGroupRepository userGroupRepository)
         {
-            Context = context;
+            this.userGroupRepository = userGroupRepository;
         }
 
         public async Task<IEnumerable<UserGroup>> Handle(GetUserGroupCollectionQuery request, CancellationToken cancellationToken)
         {
-            var response = Context.UserGroups.ToList();
+            var response = await userGroupRepository.GetListAsync();
 
-            return await Task.FromResult(response);
+            return response;
         }
     }
 }
