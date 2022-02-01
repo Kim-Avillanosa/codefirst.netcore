@@ -13,14 +13,14 @@ namespace CodeFirst.NetCore
     public interface ITimestampedEntity : IEntity
     {
         DateTime CreatedAt { get; }
-        DateTime LastModified { get; }
+        DateTime UpdatedAt { get; }
     }
 
 
     public abstract class Entity : ITimestampedEntity
     {
         int _Id;
-        DateTime _lastModified;
+        DateTime _updatedAt;
         DateTime _createdAt;
 
         public virtual int Id
@@ -47,15 +47,15 @@ namespace CodeFirst.NetCore
             }
         }
 
-        public virtual DateTime LastModified
+        public virtual DateTime UpdatedAt
         {
             get
             {
-                return _lastModified;
+                return _updatedAt;
             }
             protected set
             {
-                _lastModified = value;
+                _updatedAt = value;
             }
         }
 

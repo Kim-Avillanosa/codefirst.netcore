@@ -15,15 +15,15 @@ namespace CodeFirst.NetCore
                 .HasColumnName("created_at")
                 .HasColumnType("TIMESTAMP")
                 .ValueGeneratedOnAdd();
-            entity.Property(d => d.LastModified)
-                .HasColumnName("last_modified")
+            entity.Property(d => d.UpdatedAt)
+                .HasColumnName("updated_at")
                 .HasColumnType("TIMESTAMP")
                 .ValueGeneratedOnAddOrUpdate();
 
             entity.Property(d => d.CreatedAt).Metadata.SetBeforeSaveBehavior(PropertySaveBehavior.Ignore);
             entity.Property(d => d.CreatedAt).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
-            entity.Property(d => d.LastModified).Metadata.SetBeforeSaveBehavior(PropertySaveBehavior.Ignore);
-            entity.Property(d => d.LastModified).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+            entity.Property(d => d.UpdatedAt).Metadata.SetBeforeSaveBehavior(PropertySaveBehavior.Ignore);
+            entity.Property(d => d.UpdatedAt).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
 
             return entity;
         }

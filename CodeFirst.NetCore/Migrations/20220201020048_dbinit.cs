@@ -17,7 +17,7 @@ namespace CodeFirst.NetCore.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    last_modified = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                    updated_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn)
                 },
                 constraints: table =>
@@ -36,7 +36,7 @@ namespace CodeFirst.NetCore.Migrations
                     UserGroupId = table.Column<int>(type: "int", nullable: false),
                     created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    last_modified = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                    updated_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn)
                 },
                 constraints: table =>
