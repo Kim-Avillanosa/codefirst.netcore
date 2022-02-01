@@ -32,7 +32,11 @@ namespace CodeFirst.NetCore
             services.AddMediatR(typeof(Startup));
 
 
-            string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
+            var userSecretConnectionString = Configuration.GetSection("LocalConnectionString").Value;
+
+            string mySqlConnectionStr = userSecretConnectionString ?? Configuration.GetConnectionString("DefaultConnection");
+
+
             services.AddDbContextPool<UserDBContext>
                 (options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr),
                 options=> options.MigrationsAssembly("CodeFirst.NetCore")));
