@@ -14,10 +14,8 @@ namespace CodeFirst.NetCore
         public DbSet<User> Users { get; set; }
 
 
-        public UserDBContext(DbContextOptions<UserDBContext> options) : base(options)
-        {
-
-        }
+        public UserDBContext(DbContextOptions<UserDBContext> options) 
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,10 +25,6 @@ namespace CodeFirst.NetCore
             // apply configurations
             modelBuilder.ApplyConfiguration(new MySQLEFConfiguration.UserConfiguration());
             modelBuilder.ApplyConfiguration(new MySQLEFConfiguration.UserGroupConfiguration());
-
-
-            //modelBuilder.Entity<User>().SeedUsers();
-            //modelBuilder.Entity<UserGroup>().SeedUserGroups();
 
         }
 
