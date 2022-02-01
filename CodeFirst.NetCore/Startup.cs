@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using FluentValidation;
+using System.Reflection;
 
 namespace CodeFirst.NetCore
 {
@@ -30,6 +32,9 @@ namespace CodeFirst.NetCore
         {
 
             services.AddMediatR(typeof(Startup));
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 
             var userSecretConnectionString = Configuration.GetSection("LocalConnectionString").Value;
@@ -68,6 +73,8 @@ namespace CodeFirst.NetCore
 
             // handles auto migration
             app.CreateMigration();
+
+            app.UseMiddleware<ExceptionHandling>();
 
             app.UseHttpsRedirection();
 

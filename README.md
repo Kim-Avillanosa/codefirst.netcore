@@ -15,6 +15,7 @@ Using the following tech and practices
  - Swagger Docs
  - .Net Core 5 
  - Repository Pattern
+ - Fluent validation
 ------------
 
 
