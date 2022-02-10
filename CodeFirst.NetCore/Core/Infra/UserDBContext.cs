@@ -25,6 +25,7 @@ namespace CodeFirst.NetCore
             // apply configurations
             modelBuilder.ApplyConfiguration(new MySQLEFConfiguration.UserConfiguration());
             modelBuilder.ApplyConfiguration(new MySQLEFConfiguration.UserGroupConfiguration());
+            modelBuilder.ApplyConfiguration(new MySQLEFConfiguration.AddressConfiguration());
 
         }
 

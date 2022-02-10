@@ -31,9 +31,13 @@ namespace CodeFirst.NetCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserGroupId = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    UserName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    UserGroupId = table.Column<int>(type: "int", nullable: false),
+                    Phone = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Website = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     updated_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
@@ -46,6 +50,33 @@ namespace CodeFirst.NetCore.Migrations
                         name: "FK_Users_UserGroups",
                         column: x => x.UserGroupId,
                         principalTable: "UserGroups",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Address",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Suite = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    ZipCode = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Coordinates = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    updated_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Address",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
@@ -66,18 +97,34 @@ namespace CodeFirst.NetCore.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "FirstName", "LastName", "UserGroupId" },
-                values: new object[] { 1, "Kim", "Avillanosa", 1 });
+                columns: new[] { "Id", "Email", "FirstName", "LastName", "Phone", "UserGroupId", "UserName", "Website" },
+                values: new object[] { 1, "kmavillanosa@gmail.com", "Kim", "Avillanosa", "09452873791", 1, "kmavillanosa", "google.com" });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "FirstName", "LastName", "UserGroupId" },
-                values: new object[] { 2, "Mark", "Peralta", 2 });
+                columns: new[] { "Id", "Email", "FirstName", "LastName", "Phone", "UserGroupId", "UserName", "Website" },
+                values: new object[] { 2, "mperalta@gmail.com", "Mark", "Peralta", "09452873791", 2, "mperalta", "google.com" });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "FirstName", "LastName", "UserGroupId" },
-                values: new object[] { 3, "Elmer", "Robles", 3 });
+                columns: new[] { "Id", "Email", "FirstName", "LastName", "Phone", "UserGroupId", "UserName", "Website" },
+                values: new object[] { 3, "erobles@gmail.com", "Elmer", "Robles", "09452873791", 3, "erobles", "google.com" });
+
+            migrationBuilder.InsertData(
+                table: "Address",
+                columns: new[] { "Id", "City", "Coordinates", "Street", "Suite", "UserId", "ZipCode" },
+                values: new object[] { 1, "PPC", "{\"Longitude\":\"-7.77832031\",\"Latitude\":\"53.2734\"}", "Manalo Extension", "258-A", 1, "5300" });
+
+            migrationBuilder.CreateIndex(
+                name: "Idx_ZipCode",
+                table: "Address",
+                column: "ZipCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Address_UserId",
+                table: "Address",
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "Idx_Name",
@@ -103,6 +150,9 @@ namespace CodeFirst.NetCore.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Address");
+
             migrationBuilder.DropTable(
                 name: "Users");
 

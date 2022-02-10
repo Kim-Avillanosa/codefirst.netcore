@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeFirst.NetCore.Migrations
 {
     [DbContext(typeof(UserDBContext))]
-    [Migration("20220201020048_dbinit")]
+    [Migration("20220210032506_dbinit")]
     partial class dbinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,6 +19,74 @@ namespace CodeFirst.NetCore.Migrations
                 .HasAnnotation("Relational:Collation", "utf8_general_ci")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("CodeFirst.NetCore.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("City");
+
+                    b.Property<string>("Coordinates")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4")
+                        .HasColumnName("Coordinates");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Street");
+
+                    b.Property<string>("Suite")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Suite");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("ZipCode");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.HasIndex("ZipCode")
+                        .HasDatabaseName("Idx_ZipCode");
+
+                    b.ToTable("Address");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "PPC",
+                            Coordinates = "{\"Longitude\":\"-7.77832031\",\"Latitude\":\"53.2734\"}",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Street = "Manalo Extension",
+                            Suite = "258-A",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 1,
+                            ZipCode = "5300"
+                        });
+                });
 
             modelBuilder.Entity("CodeFirst.NetCore.User", b =>
                 {
@@ -31,6 +99,9 @@ namespace CodeFirst.NetCore.Migrations
                         .HasColumnType("TIMESTAMP")
                         .HasColumnName("created_at");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
@@ -41,6 +112,9 @@ namespace CodeFirst.NetCore.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("LastName");
 
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TIMESTAMP")
@@ -48,6 +122,12 @@ namespace CodeFirst.NetCore.Migrations
 
                     b.Property<int>("UserGroupId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Website")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -66,28 +146,40 @@ namespace CodeFirst.NetCore.Migrations
                         {
                             Id = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "kmavillanosa@gmail.com",
                             FirstName = "Kim",
                             LastName = "Avillanosa",
+                            Phone = "09452873791",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserGroupId = 1
+                            UserGroupId = 1,
+                            UserName = "kmavillanosa",
+                            Website = "google.com"
                         },
                         new
                         {
                             Id = 2,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mperalta@gmail.com",
                             FirstName = "Mark",
                             LastName = "Peralta",
+                            Phone = "09452873791",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserGroupId = 2
+                            UserGroupId = 2,
+                            UserName = "mperalta",
+                            Website = "google.com"
                         },
                         new
                         {
                             Id = 3,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "erobles@gmail.com",
                             FirstName = "Elmer",
                             LastName = "Robles",
+                            Phone = "09452873791",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserGroupId = 3
+                            UserGroupId = 3,
+                            UserName = "erobles",
+                            Website = "google.com"
                         });
                 });
 
@@ -144,6 +236,16 @@ namespace CodeFirst.NetCore.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CodeFirst.NetCore.Address", b =>
+                {
+                    b.HasOne("CodeFirst.NetCore.User", null)
+                        .WithOne("Address")
+                        .HasForeignKey("CodeFirst.NetCore.Address", "UserId")
+                        .HasConstraintName("FK_Users_Address")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CodeFirst.NetCore.User", b =>
                 {
                     b.HasOne("CodeFirst.NetCore.UserGroup", null)
@@ -152,6 +254,11 @@ namespace CodeFirst.NetCore.Migrations
                         .HasConstraintName("FK_Users_UserGroups")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CodeFirst.NetCore.User", b =>
+                {
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

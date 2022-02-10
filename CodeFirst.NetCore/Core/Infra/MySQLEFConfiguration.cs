@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,9 @@ namespace CodeFirst.NetCore.Core
                   .HasConstraintName("FK_Users_UserGroups");
 
 
+
+               
+
                 AddCreatedAndUpdatedAt(builder);
 
 
@@ -86,9 +90,67 @@ namespace CodeFirst.NetCore.Core
                 //Seed data
 
                 builder.SeedUserGroups();
+                 
+            }
+        }
+
+        public class AddressConfiguration : BaseEntityTypeConfiguration<Address>
+        {
+            public override void Configure(EntityTypeBuilder<Address> builder)
+            {
+
+                //Define tables
+                builder.ToTable("Address");
+
+                //define uniqueness and index
+                builder.HasIndex(u => u.ZipCode)
+                    .HasDatabaseName("Idx_ZipCode");
+
+                //define columns
+
+                builder.Property(u => u.Street)
+                  .HasColumnName("Street")
+                  .HasColumnType("nvarchar(100)")
+                  .IsRequired();
+
+                builder.Property(u => u.Suite)
+                   .HasColumnName("Suite")
+                   .HasColumnType("nvarchar(100)")
+                   .IsRequired();
+
+                builder.Property(u => u.ZipCode)
+                   .HasColumnName("ZipCode")
+                   .HasColumnType("nvarchar(100)")
+                   .IsRequired();
+
+                builder.Property(u => u.City)
+                   .HasColumnName("City")
+                   .HasColumnType("nvarchar(100)")
+                   .IsRequired();
+
+
+                builder.Property(x => x.Coordinates)
+                    .HasColumnName("Coordinates")
+                    .HasConversion(v => JsonConvert.SerializeObject(v,
+                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
+                    v => JsonConvert.DeserializeObject<Coordinate>(v,
+                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+
+
+                builder.HasOne<User>().WithOne(x=>x.Address)
+                   .OnDelete(DeleteBehavior.NoAction)
+                   .HasConstraintName("FK_Users_Address");
+
+
+                AddCreatedAndUpdatedAt(builder);
+
+
+                //seed data
+                builder.SeedAddress();
 
 
             }
         }
+
     }
 }
