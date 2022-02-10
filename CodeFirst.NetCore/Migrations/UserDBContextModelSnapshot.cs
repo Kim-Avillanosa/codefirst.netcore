@@ -30,7 +30,7 @@ namespace CodeFirst.NetCore.Migrations
                         .HasColumnName("City");
 
                     b.Property<string>("Coordinates")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4")
+                        .HasColumnType("json")
                         .HasColumnName("Coordinates");
 
                     b.Property<DateTime>("CreatedAt")

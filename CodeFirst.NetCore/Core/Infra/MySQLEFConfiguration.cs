@@ -134,7 +134,8 @@ namespace CodeFirst.NetCore.Core
                     .HasConversion(v => JsonConvert.SerializeObject(v,
                     new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }),
                     v => JsonConvert.DeserializeObject<Coordinate>(v,
-                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }))
+                    .HasColumnType("json");
 
 
                 builder.HasOne<User>().WithOne(x=>x.Address)

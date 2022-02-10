@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeFirst.NetCore.Migrations
 {
     [DbContext(typeof(UserDBContext))]
-    [Migration("20220210032506_dbinit")]
+    [Migration("20220210033313_dbinit")]
     partial class dbinit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,7 +32,7 @@ namespace CodeFirst.NetCore.Migrations
                         .HasColumnName("City");
 
                     b.Property<string>("Coordinates")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4")
+                        .HasColumnType("json")
                         .HasColumnName("Coordinates");
 
                     b.Property<DateTime>("CreatedAt")

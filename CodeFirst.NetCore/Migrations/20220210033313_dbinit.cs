@@ -64,7 +64,7 @@ namespace CodeFirst.NetCore.Migrations
                     Suite = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     ZipCode = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    Coordinates = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Coordinates = table.Column<string>(type: "json", nullable: true),
                     created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     updated_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
