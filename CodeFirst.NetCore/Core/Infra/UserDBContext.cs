@@ -13,6 +13,8 @@ namespace CodeFirst.NetCore
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Address> Addresses { get; set; }
+
 
         public UserDBContext(DbContextOptions<UserDBContext> options) 
             : base(options) { }

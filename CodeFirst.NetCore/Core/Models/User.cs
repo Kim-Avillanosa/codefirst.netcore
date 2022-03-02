@@ -15,7 +15,7 @@ namespace CodeFirst.NetCore
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Website { get; set; }
-        public Address Address { get; set; }
+        internal Address Address { get; set; }
 
         public User()
         {
