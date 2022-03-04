@@ -14,6 +14,7 @@ namespace CodeFirst.NetCore.Test
         {
             //arrange
             var expectedUser = new User(1, 1, "kmavillanosa@gmail.com", "kmavillanosa", "Kim", "Avillanosa", "09452873791", "google.com");
+            
             var parameter = 1;
 
             //act
@@ -29,6 +30,7 @@ namespace CodeFirst.NetCore.Test
         {
             //arrange
             var expectedUser = new User(1, 1, "kmavillanosa@gmail.com", "kmavillanosa", "Kim", "Avillanosa", "09452873791", "google.com");
+            
             var parameter = 2;
 
             //act
@@ -45,6 +47,7 @@ namespace CodeFirst.NetCore.Test
         {
             //arrange
             var expectedUser = new User(1, 1, "kmavillanosa@gmail.com", "kmavillanosa", "Kim", "Avillanosa", "09452873791", "google.com");
+            
             var parameter = 22231;
 
             //act && assert

@@ -8,11 +8,11 @@ namespace CodeFirst.NetCore
 {
     public class DeleteUserGroupCommand : IRequest
     {
+        public int Id { get; set; }
         public DeleteUserGroupCommand(int id)
         {
             Id = id;
         }
 
-        public int Id { get; set; }
     }
 }

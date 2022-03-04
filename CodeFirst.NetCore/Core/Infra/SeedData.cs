@@ -16,8 +16,6 @@ namespace CodeFirst.NetCore
                  new UserGroup(3, "Guest"));
         }
 
-
-
         public static void SeedUsers(this EntityTypeBuilder<User> builder)
         {
             builder.HasData(

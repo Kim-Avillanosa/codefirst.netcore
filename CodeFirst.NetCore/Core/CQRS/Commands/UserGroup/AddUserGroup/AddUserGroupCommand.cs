@@ -8,11 +8,12 @@ namespace CodeFirst.NetCore
 {
     public class AddUserGroupCommand : IRequest
     {
+        public string Name { get; set; }
+
         public AddUserGroupCommand(string name)
         {
             Name = name;
         }
 
-        public string  Name { get; set; }
     }
 }
