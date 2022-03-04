@@ -25,6 +25,10 @@ namespace CodeFirst.NetCore
         {
             var user = userDBContext.Users.FirstOrDefault(item => item.Id == id);
 
+            if (user == null)
+                throw new ConflictException(ConflictCode.record_not_found, "User detail not found");
+
+
             userDBContext.Users.Remove(user);
 
             await userDBContext.SaveChangesAsync();
@@ -33,6 +37,10 @@ namespace CodeFirst.NetCore
         public async Task UpdateAsync(int id, User data)
         {
             var user = userDBContext.Users.FirstOrDefault(item => item.Id == id);
+
+            if (user == null)
+                throw new ConflictException(ConflictCode.record_not_found, "User detail not found");
+
 
             user.FirstName = data.FirstName;
 
@@ -48,6 +56,12 @@ namespace CodeFirst.NetCore
         public Task<User> GetAsync(int id)
         {
             var response = userDBContext.Users.FirstOrDefault(item => item.Id == id);
+
+
+            if (response == null)
+                throw new ConflictException(ConflictCode.record_not_found, "User detail not found");
+
+
 
             return Task.FromResult(response);
         }

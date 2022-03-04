@@ -23,11 +23,15 @@ namespace CodeFirst.NetCore
 
         public async Task UpdateAsync(int id, UserGroup data)
         {
-            var user = userDBContext.UserGroups.FirstOrDefault(item => item.Id == id);
+            var usergroup = userDBContext.UserGroups.FirstOrDefault(item => item.Id == id);
 
-            user.Name = data.Name;
+            if (usergroup == null)
+                throw new ConflictException(ConflictCode.record_not_found, "User group detail not found");
 
-            userDBContext.UserGroups.Update(user);
+
+            usergroup.Name = data.Name;
+
+            userDBContext.UserGroups.Update(usergroup);
 
             await userDBContext.SaveChangesAsync();
         }
@@ -35,6 +39,10 @@ namespace CodeFirst.NetCore
         public async Task DeleteAsync(int id)
         {
             var usergroup = userDBContext.UserGroups.FirstOrDefault(item => item.Id == id);
+
+            if (usergroup == null)
+                throw new ConflictException(ConflictCode.record_not_found, "User group detail not found");
+
 
             userDBContext.UserGroups.Remove(usergroup);
 
@@ -44,6 +52,10 @@ namespace CodeFirst.NetCore
         public  Task<UserGroup> GetAsync(int id)
         {
             var response = userDBContext.UserGroups.FirstOrDefault(item => item.Id == id);
+
+            if (response == null)
+                throw new ConflictException(ConflictCode.record_not_found, "User group detail not found");
+
 
             return Task.FromResult(response);
         }

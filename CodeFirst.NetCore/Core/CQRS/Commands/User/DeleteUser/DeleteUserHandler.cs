@@ -18,8 +18,7 @@ namespace CodeFirst.NetCore
 
         public async Task<Unit> Handle(DeleteUserGroupCommand request, CancellationToken cancellationToken)
         {
-
-           await userRepository.DeleteAsync(request.Id);
+            await userRepository.DeleteAsync(request.Id);
 
             return Unit.Value;
         }

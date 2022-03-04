@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CodeFirst.NetCore.Core
+namespace CodeFirst.NetCore
 {
     public class MySQLEFConfiguration
     {
@@ -47,12 +47,7 @@ namespace CodeFirst.NetCore.Core
                   .OnDelete(DeleteBehavior.NoAction)
                   .HasConstraintName("FK_Users_UserGroups");
 
-
-
-               
-
                 AddCreatedAndUpdatedAt(builder);
-
 
                 //seed data
                 builder.SeedUsers();
@@ -75,7 +70,6 @@ namespace CodeFirst.NetCore.Core
                     .IsUnique()
                     .HasDatabaseName("Idx_Name");
 
-
                 // define columns
 
                 builder.Property(u => u.Name)
@@ -84,8 +78,6 @@ namespace CodeFirst.NetCore.Core
                   .IsRequired();
 
                 AddCreatedAndUpdatedAt(builder);
-
-
 
                 //Seed data
 
@@ -142,9 +134,7 @@ namespace CodeFirst.NetCore.Core
                    .OnDelete(DeleteBehavior.NoAction)
                    .HasConstraintName("FK_Users_Address");
 
-
                 AddCreatedAndUpdatedAt(builder);
-
 
                 //seed data
                 builder.SeedAddress();

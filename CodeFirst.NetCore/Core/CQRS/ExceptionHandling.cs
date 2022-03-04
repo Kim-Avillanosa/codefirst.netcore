@@ -165,6 +165,12 @@ namespace CodeFirst.NetCore
 
                 Log.Error(ex, "Bad request information {RequestMethod} {RequestPath} {statusCode}", context.Request.Method, context.Request.Path, context.Response.StatusCode);
             }
+            else if (ex is ConflictException conflict)
+            {
+                problemDetails = Generate400ProblemDetails(context, conflict);
+
+                Log.Error(ex, "Bad request information {RequestMethod} {RequestPath} {statusCode}", context.Request.Method, context.Request.Path, context.Response.StatusCode);
+            }
             else if (string.Equals(ex.Message, "Unsupported media type.", StringComparison.OrdinalIgnoreCase))
             {
                 problemDetails = Generate500ProblemDetails(context);
@@ -218,6 +224,23 @@ namespace CodeFirst.NetCore
                 Status = StatusCodes.Status400BadRequest,
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
                 Title = exception.Message,
+                Instance = httpContext.Request.Path,
+            };
+
+            var traceId = Activity.Current?.Id ?? httpContext?.TraceIdentifier;
+            if (traceId != null) problemDetails.Extensions["TraceId"] = traceId;
+
+            return problemDetails;
+        }
+
+        private ProblemDetails Generate400ProblemDetails(HttpContext httpContext, ConflictException exception)
+        {
+            var problemDetails = new ProblemDetails
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                Title = exception.Code.ToString(),
+                Detail = exception.Description,
                 Instance = httpContext.Request.Path,
             };
 

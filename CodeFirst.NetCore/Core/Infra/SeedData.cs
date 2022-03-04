@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CodeFirst.NetCore.Core
+namespace CodeFirst.NetCore
 {
     public static class SeedData
     {
