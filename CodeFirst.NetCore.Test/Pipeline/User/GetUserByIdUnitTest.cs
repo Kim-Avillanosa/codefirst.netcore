@@ -46,8 +46,6 @@ namespace CodeFirst.NetCore.Test
         public void Invalid_User_Get_ShouldThrow_ConflictException()
         {
             //arrange
-            var expectedUser = new User(1, 1, "kmavillanosa@gmail.com", "kmavillanosa", "Kim", "Avillanosa", "09452873791", "google.com");
-            
             var parameter = 22231;
 
             //act && assert
